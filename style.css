@@ -76,7 +76,7 @@ h2 {
 }
 
 #hero {
-    background-color: #000000e5;
+    background-image: url(image/fundo.png);
     color:#fff;
     text-align: center;
     padding: 150px 0 100px;
