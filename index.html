@@ -6,13 +6,14 @@
     <title>Portfólio - Sampaio Santos</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="container">
+            <div class="logo">JS</div>
             <nav>
-                <div class="logo">JS</div>
-                <ul>
+                <ul class="nav-list">
                     <li><a href="#sobre">Sobre</a></li>
                     <li><a href="#servicos">Serviços</a></li>
                     <li><a href="#projetos">Projetos</a></li>
@@ -22,119 +23,139 @@
         </div>
     </header>
 
-    <section id="hero">
-        <div class="container">
-            <img src="image/foto-profissional.png" alt="Foto do Profissional" class="profile-img">
-            <h1>Engenheiro Civil - Sampaio Santos</h1>
-            <p>CREA-BA: 051958901-7 </p>
-            <a href="#contato" class="cta-button">Entre em Contato</a>
-        </div>
-    </section>
-
-    <section id="sobre">
-        <div class="container">
-            <h2>Sobre Mim</h2>
-            <p>Sou engenheiro civil, trabalho na área há mais de 4 anos e tenho experiência em desenvolvimento de projetos.</p>
-            <p>Se seu objetivo é fazer um projeto bem elaborado, seguro, com baixo custo e do jeitinho que você sempre sonhou, meus serviços são 100% ideias para você.</p>
-        </div>
-    </section>
-    <section id="servicos">
-        <div class="container">
-            <h2>Serviços</h2>
-            <div class="servicos-grid">
-                <div class="servico">
-                    <i class="fas fa-comments"></i>
-                    <h3>Projetos Arquitetônicos</h3>
-                    <p>Consultoria completa para a criação de projetos arquitetônicos, incluindo a definição de layout e estilo, além de detalhamentos técnicos.</p>
-                </div>
-                <div class="servico">
-                    <i class="fas fa-drafting-compass"></i>
-                    <h3>Projetos Estruturais</h3>
-                    <p>Desenvolvimento de projetos para estruturas de concreto, aço e madeira, com soluções técnicas personalizadas para garantir a segurança e funcionalidade da obra.</p>
-                </div>
-                <div class="servico">
-                    <i class="fas fa-hard-hat"></i>
-                    <h3>Projetos Elétricos</h3>
-                    <p>Planejamento e execução de projetos elétricos, garantindo a eficiência energética, segurança e cumprimento das normas técnicas.</p>
-                </div>
-                <div class="servico">
-                    <i class="fas fa-tint"></i>
-                    <h3>Projetos Hidráulicos</h3>
-                    <p>Elaboração de projetos hidráulicos, incluindo sistemas de abastecimento de água, esgoto e drenagem, com foco em eficiência e sustentabilidade.</p>
-                </div>
-                <div class="servico">
-                    <i class="fas fa-cogs"></i>
-                    <h3>Regularização de Imóveis</h3>
-                    <p>Assessoria na regularização de imóveis, abrangendo documentação, aprovação de projetos e adequação às normas e legislações municipais e estaduais.</p>
-                </div>
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+    <section id="hero" class="hero-section">
+        <div class="container hero-container">
+            <div class="hero-image">
+                <img src="image/foto-profissional.png" alt="Foto do Profissional" class="profile-img" onclick="openModal(this)">
+            </div>
+            <div class="hero-text">
+                <h1>Engenheiro Civil - Sampaio Santos</h1>
+                <p>CREA-BA: 051958901-7</p>
+                <p>Sou engenheiro civil, trabalho na área há mais de 4 anos e tenho experiência em desenvolvimento de projetos.</p>
+                <p>Se seu objetivo é fazer um projeto bem elaborado, seguro, com baixo custo e do jeitinho que você sempre sonhou, meus serviços são 100% ideais para você.</p>
+                <a href="#contato" class="cta-button">Entre em Contato</a>
             </div>
         </div>
     </section>
     
-
-    <section id="projetos" class="projects">
+    <section id="servicos" class="services-section">
         <div class="container">
-            <h2>Projetos</h2>
-            <div class="project-grid">
-                <div class="project-item">
-                    <img src="image/projeto-01.png" alt="Projeto 1" class="project-image">
-                    <div class="project-overlay">
-                        <h3>Projeto Residencial</h3>
-                        <p>Casa moderna com design elegante</p>
-                    </div>
+            <h2 class="section-title">Serviços</h2>
+            <div class="services-grid">
+                <div class="service-item" onclick="openServiceModal('service1')">
+                    <i class="fas fa-comments"></i>
+                    <h3>Projetos Arquitetônicos</h3>
+                    <p>Consultoria completa para a criação de projetos arquitetônicos.</p>
                 </div>
-                <div class="project-item">
-                    <img src="image/projeto-06.jpg" alt="Projeto 2" class="project-image">
-                    <div class="project-overlay">
-                        <h3>Projeto Residencial</h3>
-                        <p>Chacará de alto padrão</p>
-                    </div>
+                <div class="service-item" onclick="openServiceModal('service2')">
+                    <i class="fas fa-drafting-compass"></i>
+                    <h3>Projetos Estruturais</h3>
+                    <p>Desenvolvimento de projetos para estruturas de concreto, aço e madeira.</p>
                 </div>
-                <div class="project-item">
-                    <img src="image/projeto-03.png" alt="Projeto 3" class="project-image">
-                    <div class="project-overlay">
-                        <h3>Projeto Residencial</h3>
-                        <p>Reforma de Fachada</p>
-                    </div>
+                <div class="service-item" onclick="openServiceModal('service3')">
+                    <i class="fas fa-hard-hat"></i>
+                    <h3>Projetos Elétricos</h3>
+                    <p>Planejamento e execução de projetos elétricos.</p>
                 </div>
-                <div class="project-item">
-                    <img src="image/projeto-04.png" alt="Projeto 4" class="project-image">
-                    <div class="project-overlay">
-                        <h3>Projeto Completo</h3>
-                        <p>Fachada, Hidráulico, Elétrico e Arquitetônico</p>
-                    </div>
+                <div class="service-item" onclick="openServiceModal('service4')">
+                    <i class="fas fa-tint"></i>
+                    <h3>Projetos Hidráulicos</h3>
+                    <p>Elaboração de projetos hidráulicos.</p>
                 </div>
+                <div class="service-item" onclick="openServiceModal('service5')">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Regularização de Imóveis</h3>
+                    <p>Assessoria na regularização de imóveis.</p>
+                </div>
+                <div class="service-item" onclick="openServiceModal('service6')">
+                    <i class="fas fa-building"></i>
+                    <h3>Fachadas</h3>
+                    <p>Projetode fachadas comerciais e residenciais.</p>
+                </div>
+                
             </div>
         </div>
     </section>
-
-    <footer>
+    
+    <!-- Service Modals -->
+    <div id="serviceModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeServiceModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
+    
+    
+        <section id="projetos" class="projects-section">
+            <div class="container">
+            <h2 class="section-title">Projetos</h2>
+            <div class="projects-grid">
+                <!-- Projeto 1 -->
+                <div class="project-item" onclick="openProjectModal('project1')">
+                <img src="/image/projeto-01.png" alt="Projeto Residencial" class="project-image">
+                <div class="project-overlay">
+                    <h3>Projeto Residencial</h3>
+                    <p>Casa moderna com design elegante</p>
+                </div>
+                </div>
+        
+                <!-- Projeto 2 -->
+                <div class="project-item" onclick="openProjectModal('project2')">
+                <img src="/image/projeto-06.jpg" alt="Chácara de Alto Padrão" class="project-image">
+                <div class="project-overlay">
+                    <h3>Chácara de Alto Padrão</h3>
+                    <p>Com estilo e conforto únicos</p>
+                </div>
+                </div>
+        
+                <!-- Projeto 3 -->
+                <div class="project-item" onclick="openProjectModal('project3')">
+                <img src="/image/projeto-03.png" alt="Reforma de Fachada" class="project-image">
+                <div class="project-overlay">
+                    <h3>Reforma de Fachada</h3>
+                    <p>Transformação moderna e elegante</p>
+                </div>
+                </div>
+        
+                <!-- Projeto 4 -->
+                <div class="project-item" onclick="openProjectModal('project4')">
+                <img src="/image/projeto-04.png" alt="Projeto Completo" class="project-image">
+                <div class="project-overlay">
+                    <h3>Projeto Completo</h3>
+                    <p>Arquitetura, Elétrico e Hidráulico</p>
+                </div>
+                </div>
+            </div>
+            </div>
+        </section>
+        
+    <footer id="contato" class="footer-section">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
+                <div class="footer-column">
                     <h3>Engenharia Civil</h3>
                     <p>Transformando ideias em realidade</p>
                 </div>
-                <div class="footer-section">
+                <div class="footer-column">
                     <h3>Contato</h3>
                     <p>Email: eng.sampaiosantos@gmail.com</p>
                     <p>WhatsApp: (75) 99804-1767</p>
                 </div>
-                <div class="footer-section">
+                <div class="footer-column">
                     <h3>Redes Sociais</h3>
                     <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/eng.sampaiosantos/?igsh=aGp1azZwbzNoc2I0#" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
             <p class="copyright">&copy; 2025 - Engenharia Civil. Todos os direitos reservados.</p>
         </div>
     </footer>
-
-
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 </html>
