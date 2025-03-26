@@ -90,49 +90,60 @@
         </div>
     </div>
     
-    
-        <section id="projetos" class="projects-section">
-            <div class="container">
+    <section id="projetos" class="projects-section">
+        <div class="container">
             <h2 class="section-title">Projetos</h2>
-            <div class="projects-grid">
-                <!-- Projeto 1 -->
-                <div class="project-item" onclick="openProjectModal('project1')">
-                <img src="/image/projeto-01.png" alt="Projeto Residencial" class="project-image">
-                <div class="project-overlay">
-                    <h3>Projeto Residencial</h3>
-                    <p>Casa moderna com design elegante</p>
+            <div class="projects-carousel-container">
+                <div class="location-title">
                 </div>
-                </div>
-        
-                <!-- Projeto 2 -->
-                <div class="project-item" onclick="openProjectModal('project2')">
-                <img src="/image/projeto-06.jpg" alt="Chácara de Alto Padrão" class="project-image">
-                <div class="project-overlay">
-                    <h3>Chácara de Alto Padrão</h3>
-                    <p>Com estilo e conforto únicos</p>
-                </div>
-                </div>
-        
-                <!-- Projeto 3 -->
-                <div class="project-item" onclick="openProjectModal('project3')">
-                <img src="/image/projeto-03.png" alt="Reforma de Fachada" class="project-image">
-                <div class="project-overlay">
-                    <h3>Reforma de Fachada</h3>
-                    <p>Transformação moderna e elegante</p>
-                </div>
-                </div>
-        
-                <!-- Projeto 4 -->
-                <div class="project-item" onclick="openProjectModal('project4')">
-                <img src="/image/projeto-04.png" alt="Projeto Completo" class="project-image">
-                <div class="project-overlay">
-                    <h3>Projeto Completo</h3>
-                    <p>Arquitetura, Elétrico e Hidráulico</p>
-                </div>
+                <div class="projects-carousel">
+                    <!-- Projeto 1 -->
+                    <div class="project-card" data-project="project1">
+                        <img src="/image/projeto-01.png" alt="Projeto Residencial" class="project-card-image">
+                        <div class="project-card-info">
+                            <h4>Projeto Residencial</h4>
+                        </div>
+                    </div>
+                    
+                    <!-- Projeto 2 -->
+                    <div class="project-card" data-project="project2">
+                        <img src="/image/projeto-06.jpg" alt="Chácara de Alto Padrão" class="project-card-image">
+                        <div class="project-card-info">
+                            <h4>Chácara de Alto Padrão</h4>
+                        </div>
+                    </div>
+                    
+                    <!-- Projeto 3 -->
+                    <div class="project-card" data-project="project3">
+                        <img src="/image/projeto-03.png" alt="Reforma de Fachada" class="project-card-image">
+                        <div class="project-card-info">
+                            <h4>Reforma de Fachada</h4>
+                        </div>
+                    </div>
+                    
+                    <!-- Projeto 4 -->
+                    <div class="project-card" data-project="project4">
+                        <img src="/image/projeto-04.png" alt="Projeto Completo" class="project-card-image">
+                        <div class="project-card-info">
+                            <h4>Projeto Completo</h4>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+        
+        <!-- Expanded View Overlay -->
+        <div id="expanded-overlay" class="expanded-overlay">
+            <div class="expanded-content">
+                <span class="close-expanded">&times;</span>
+                <img id="expanded-image" src="/placeholder.svg" alt="Imagem expandida">
+                <div class="expanded-info">
+                    <h3 id="expanded-title"></h3>
+                    <p id="expanded-description"></p>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
         
     <footer id="contato" class="footer-section">
         <div class="container">
