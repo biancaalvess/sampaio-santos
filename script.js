@@ -2,39 +2,34 @@ document.addEventListener("DOMContentLoaded", () => {
     // Project data with enhanced civil engineering information
     const projectData = {
         project1: {
-            title: "Fachada Alto Padrão",
+            title: "Residência Alto Padrão",
             description:
-            "Projeto xxx para residência de alto padrão com xxx. Design moderno com amplos espaços integrados e acabamentos premium.",
-            image:
-            "/image/projeto-01.png",
+            "Projeto arquitetônico para residência de alto padrão com 320m². Design moderno com amplos espaços integrados e acabamentos premium.",
+            image: "image/projeto-01.png",
         },
         project2: {
-            title: "Fachada Alto Padrão",
+            title: "Edifício Comercial",
             description:
-            "Projeto xxx para residência de alto padrão com xxx. Design moderno com amplos espaços integrados e acabamentos premium.",
-            image:
-            "/image/projeto-03.png",
+            "Projeto para edifício comercial de 5 andares com 2.500m². Fachada moderna com vidros espelhados e estrutura contemporânea.",
+            image: "image/projeto-02.png",
         },
         project3: {
-            title: "Projeto Completo",
+            title: "Ponte Municipal",
             description:
-            "Projeto xxx para residência de alto padrão com xxx. Design moderno com amplos espaços integrados e acabamentos premium. de ponte com 45m de extensão sobre o Rio Verde. Estrutura moderna que se integra à paisagem local.",
-            image:
-            "/image/projeto-04.png",
+            "Projeto de ponte com 45m de extensão sobre o Rio Verde. Estrutura moderna que se integra à paisagem local.",
+            image: "image/projeto-03.jpg",
         },
         project4: {
-            title: "Chacará Alto Padrão",
+            title: "Condomínio Residencial",
             description:
-            "Projeto xxx para residência de alto padrão com xxx. Design moderno com amplos espaços integrados e acabamentos premium.",
-            image:
-            "/image/projeto-05.jpg",
+            "Projeto para condomínio com 12 casas geminadas. Design moderno com áreas comuns e espaços de lazer integrados.",
+            image: "image/projeto-04.jpg",
         },
         project5: {
-            title: "Fachada Comercial",
+            title: "Estação de Tratamento",
             description:
-            "Projeto xxx para residência de alto padrão com xxx. Design moderno com amplos espaços integrados e acabamentos premium.",
-            image:
-            "/image/projeto-07.jpg",
+            "Projeto para estação de tratamento de água com capacidade para 200L/s. Estrutura moderna e funcional com tecnologia de ponta.",
+            image: "image/projeto-05.jpg",
         },
         }
     
@@ -216,6 +211,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 300)
         }
     
+        // Function to reset zoom
+        function resetZoom() {
+        scale = 1
+        translateX = 0
+        translateY = 0
+        updateTransform()
+        }
+    
+        // Function to update transform
+        function updateTransform() {
+        modalImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`
+        }
+    
+        // Function to calculate distance between two points
+        function getDistance(touch1, touch2) {
+        const dx = touch1.clientX - touch2.clientX
+        const dy = touch1.clientY - touch2.clientY
+        return Math.sqrt(dx * dx + dy * dy)
+        }
+    
         // Zoom functionality with mouse wheel
         modalImage.addEventListener("wheel", (e) => {
         e.preventDefault()
@@ -308,7 +323,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const x = midX - rect.left
             const y = midY - rect.top
     
-            // Calculate new translate values
+            // Calculate new translate values to zoom toward cursor
             const ratio = 1 - newScale / scale
             translateX = translateX + (x - translateX) * ratio
             translateY = translateY + (y - translateY) * ratio
@@ -319,78 +334,93 @@ document.addEventListener("DOMContentLoaded", () => {
             // Apply transform
             updateTransform()
             }
-            e.preventDefault()
         } else if (e.touches.length === 1 && isDragging) {
-            // Pan
             translateX = e.touches[0].clientX - startX
             translateY = e.touches[0].clientY - startY
             updateTransform()
-            e.preventDefault()
         }
         })
     
-        modalImage.addEventListener("touchend", () => {
+        document.addEventListener("touchend", () => {
         isDragging = false
-        initialDistance = 0
+        modalImage.style.cursor = scale > 1 ? "grab" : "default"
         })
     
-        // Helper function to calculate distance between two touch points
-        function getDistance(touch1, touch2) {
-        const dx = touch1.clientX - touch2.clientX
-        const dy = touch1.clientY - touch2.clientY
-        return Math.sqrt(dx * dx + dy * dy)
-        }
+        // Adicionar suporte para swipe no carrossel
+        let touchStartX = 0
+        let touchEndX = 0
     
-        // Update transform with current scale and translation
-        function updateTransform() {
-        modalImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`
-        }
+        carousel.addEventListener(
+        "touchstart",
+        (e) => {
+            touchStartX = e.changedTouches[0].screenX
+        },
+        false,
+        )
     
-        // Reset zoom and position
-        function resetZoom() {
-        scale = 1
-        translateX = 0
-        translateY = 0
-        updateTransform()
-        modalImage.style.cursor = "default"
-        }
+        carousel.addEventListener(
+        "touchend",
+        (e) => {
+            touchEndX = e.changedTouches[0].screenX
+            handleSwipe()
+        },
+        false,
+        )
     
-        // Keyboard navigation
-        document.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowLeft") {
-            prevBtn.click()
-        } else if (e.key === "ArrowRight") {
+        function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+            // Swipe para a esquerda
             nextBtn.click()
         }
+        if (touchEndX > touchStartX + 50) {
+            // Swipe para a direita
+            prevBtn.click()
+        }
+        }
+    
+        // Chamar a função de ajuste ao carregar
+        adjustCarouselForScreenSize()
+    })
+    
+    // Adicionar detecção de orientação para ajustar o carrossel
+    window.addEventListener("resize", adjustCarouselForScreenSize)
+    window.addEventListener("orientationchange", adjustCarouselForScreenSize)
+    
+    // Função para ajustar o carrossel com base no tamanho da tela
+    function adjustCarouselForScreenSize() {
+        const isMobile = window.innerWidth <= 576
+        const isSmallMobile = window.innerWidth <= 375
+        const isLandscape = window.innerWidth > window.innerHeight
+    
+        // Ajustar a distância Z do carrossel com base no tamanho da tela
+        document.querySelectorAll(".carousel-item").forEach((item, index) => {
+        let translateZ = 400 // Valor padrão para desktop
+    
+        if (isSmallMobile) {
+            translateZ = 200
+        } else if (isMobile) {
+            translateZ = 300
+        } else if (window.innerWidth <= 768) {
+            translateZ = 350
+        }
+    
+        // Ajustar para orientação paisagem em dispositivos móveis
+        if (isLandscape && window.innerWidth <= 768) {
+            translateZ = translateZ * 0.7
+        }
+    
+        item.style.transform = `rotateY(${index * (360 / projectCount)}deg) translateZ(${translateZ}px)`
         })
     
-        // Initialize the carousel
-        initCarousel()
+        // Atualizar a rotação atual
+        updateCarousel()
+    }
     
-        // Add click event to carousel items
-        document.addEventListener("click", (e) => {
-        if (e.target.closest(".carousel-item")) {
-            openModal()
-        }
-        })
+    // Modificar a função initCarousel para chamar adjustCarouselForScreenSize
+    const originalInitCarousel = initCarousel
+    function initCarousel() {
+        originalInitCarousel()
+        adjustCarouselForScreenSize()
+    }
     
-        // Function to open profile image modal
-        window.openModal = (img) => {
-        const modal = document.getElementById("imageModal")
-        const modalImg = document.getElementById("modalImage")
-        modal.style.display = "block"
-        modalImg.src = img.src
-    
-        // Close when clicking on modal background
-        modal.onclick = () => {
-            modal.style.display = "none"
-        }
-        }
-    
-        // Function to open service modal (placeholder)
-        window.openServiceModal = (serviceId) => {
-        // This function can be implemented to show service details
-        console.log("Service clicked:", serviceId)
-        // You can implement a modal for services similar to the project modal
-        }
-    })  
+  
