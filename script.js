@@ -1,54 +1,83 @@
-const carousel = document.getElementById("carousel");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const modal = document.getElementById("imageModal");
-const modalImg = document.getElementById("modalImg");
-const closeModal = document.getElementById("closeModal");
+function openModal(imageSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    modal.style.display = 'block';
+    modalImg.src = imageSrc;
+}
 
-let currentIndex = 0;
-
-const updateCarousel = () => {
-  const width = carousel.clientWidth;
-  carousel.style.transform = `translateX(-${currentIndex * width}px)`;
+document.getElementById('closeModal').onclick = function() {
+    document.getElementById('imageModal').style.display = 'none';
 };
 
-prevBtn.addEventListener("click", () => {
-  currentIndex = (currentIndex - 1 + carousel.children.length) % carousel.children.length;
-  updateCarousel();
+let currentIndex = 0;
+const carouselItems = document.querySelectorAll('.carousel-item');
+const totalItems = carouselItems.length;
+const carousel = document.getElementById('carousel');
+const indicatorsContainer = document.getElementById('carouselIndicators');
+
+function createIndicators() {
+    for (let i = 0; i < totalItems; i++) {
+        const indicator = document.createElement('span');
+        indicator.classList.add('indicator');
+        if (i === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+            currentIndex = i;
+            updateCarousel();
+        });
+        indicatorsContainer.appendChild(indicator);
+    }
+}
+
+function updateCarousel() {
+    const offset = -currentIndex * 100;
+    carousel.style.transform = `translateX(${offset}%)`;
+    document.querySelectorAll('.indicator').forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === currentIndex);
+    });
+}
+
+document.getElementById('prevBtn').onclick = function() {
+    currentIndex = (currentIndex === 0) ? totalItems - 1 : currentIndex - 1;
+    updateCarousel();
+};
+
+document.getElementById('nextBtn').onclick = function() {
+    currentIndex = (currentIndex === totalItems - 1) ? 0 : currentIndex + 1;
+    updateCarousel();
+};
+
+carouselItems.forEach(item => {
+    const img = item.querySelector('.project-image');
+    let isZoomed = false;
+    img.addEventListener('click', () => {
+        if (!isZoomed) {
+            img.style.transform = 'scale(1.5)';
+            img.style.zIndex = '10';
+            isZoomed = true;
+        } else {
+            img.style.transform = 'scale(1)';
+            img.style.zIndex = '1';
+            isZoomed = false;
+        }
+    });
 });
 
-nextBtn.addEventListener("click", () => {
-  currentIndex = (currentIndex + 1) % carousel.children.length;
-  updateCarousel();
+let touchStartX = 0;
+let touchEndX = 0;
+
+carousel.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
 });
 
-// Zoom da imagem (abre modal)
-document.querySelectorAll(".project-image").forEach(img => {
-  img.addEventListener("click", () => {
-    modal.style.display = "flex";
-    modalImg.src = img.src;
-  });
+carousel.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 50) {
+        currentIndex = (currentIndex === totalItems - 1) ? 0 : currentIndex + 1;
+        updateCarousel();
+    } else if (touchEndX - touchStartX > 50) {
+        currentIndex = (currentIndex === 0) ? totalItems - 1 : currentIndex - 1;
+        updateCarousel();
+    }
 });
 
-// Fechar modal (clique no X)
-closeModal.addEventListener("click", () => {
-  modal.style.display = "none";
-});
-
-
-// Fechar modal com ESC
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    modal.style.display = "none";
-  }
-});
-
-// Botão voltar no modal
-const backButton = document.createElement("button");
-backButton.classList.add("back-button");
-backButton.textContent = "Voltar";
-backButton.addEventListener("click", () => {
-  modal.style.display = "none";
-});
-
-modal.insertBefore(backButton, modalImg);
+createIndicators();

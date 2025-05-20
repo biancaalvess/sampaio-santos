@@ -85,43 +85,42 @@
         <h2 class="section-title">Projetos</h2>
       
         <div class="carousel-container">
-          <button class="nav-btn prev" id="prevBtn">&#10094;</button>
-      
-          <div class="carousel" id="carousel">
-            <div class="carousel-item">
-              <img src="image/projeto-03.png" alt="Projeto 1" class="project-image">
+            <button class="nav-btn prev" id="prevBtn">&#10094;</button>
+    
+            <div class="carousel" id="carousel">
+                <div class="carousel-item">
+                    <img src="image/projeto-03.png" alt="Projeto 1" class="project-image" onclick="openModal('image/projeto-03.png')">
+                </div>
+                <div class="carousel-item">
+                    <img src="image/projeto-01.png" alt="Projeto 2" class="project-image" onclick="openModal('image/projeto-01.png')">
+                </div>
+                <div class="carousel-item">
+                    <img src="image/projeto-02.png" alt="Projeto 3" class="project-image" onclick="openModal('image/projeto-02.png')">
+                </div>
+                <div class="carousel-item">
+                    <img src="image/projeto-04.png" alt="Projeto 4" class="project-image" onclick="openModal('image/projeto-04.png')">
+                </div>
+                <div class="carousel-item">
+                    <img src="image/projeto-05.jpg" alt="Projeto 5" class="project-image" onclick="openModal('image/projeto-05.jpg')">
+                </div>
+                <div class="carousel-item">
+                    <img src="image/projeto-06.jpg" alt="Projeto 6" class="project-image" onclick="openModal('image/projeto-06.jpg')">
+                </div>
+                <div class="carousel-item">
+                    <img src="image/projeto-07.jpg" alt="Projeto 7" class="project-image" onclick="openModal('image/projeto-07.jpg')">
+                </div>
             </div>
-            <div class="carousel-item">
-              <img src="image/projeto-01.png" alt="Projeto 2" class="project-image">
-            </div>
-            <div class="carousel-item">
-              <img src="image/projeto-02.png" alt="Projeto 3" class="project-image">
-            </div>
-            <div class="carousel-item">
-                <img src="image/projeto-04.png" alt="Projeto 4" class="project-image">
-              </div>
-              <div class="carousel-item">
-                <img src="image/projeto-05.jpg" alt="Projeto 5" class="project-image">
-              </div>
-              <div class="carousel-item">
-                <img src="image/projeto-06.jpg" alt="Projeto 6" class="project-image">
-              </div>
-              <div class="carousel-item">
-                <img src="image/projeto-07.jpg" alt="Projeto 7" class="project-image">
-              </div>
-          </div>
-      
-          <button class="nav-btn next" id="nextBtn">&#10095;</button>
+    
+            <button class="nav-btn next" id="nextBtn">&#10095;</button>
         </div>
-      </section>
+    </section>
+    
+    <!-- Modal para ampliar imagem -->
+    <div id="imageModal" class="image-modal">
+        <button id="closeModal" class="close-modal">✖</button>
+        <img id="modalImg" class="modal-img" src="" />
+    </div>     
       
-      <!-- Modal para ampliar imagem -->
-      <div class="image-modal" id="imageModal">
-        <button class="back-button" id="closeModal">Voltar</button>
-        <img class="modal-img" id="modalImg" alt="Imagem Ampliada">
-      </div>
-      
-        
     <footer id="contato" class="footer-section">
         <div class="container">
             <div class="footer-content">
