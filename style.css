@@ -370,15 +370,32 @@ header .nav-list li a:hover::after {
 
 .projects-section {
     padding: 120px 0;
-    background: var(--dark);
+    background: linear-gradient(180deg, var(--dark-800) 0%, var(--dark) 100%);
+    position: relative;
     text-align: center;
+    overflow: hidden;
+}
+
+.projects-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(203, 0, 0, 0.1) 0%, transparent 70%);
+    z-index: 0;
 }
 
 .carousel-container {
     position: relative;
-    overflow: hidden;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
+    padding: 20px;
+    background: var(--dark-700);
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
 .carousel {
@@ -393,21 +410,54 @@ header .nav-list li a:hover::after {
     justify-content: center;
     align-items: center;
     position: relative;
+    padding: 20px;
 }
 
 .project-image {
-    width: 80%;
-    max-height: 400px;
+    width: 100%;
+    max-width: 700px;
+    max-height: 450px;
     object-fit: cover;
     border-radius: 15px;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 1;
 }
 
 .project-image:hover {
     transform: scale(1.05);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+.project-image::before {
+    content: "Clique para ampliar";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 15px;
+}
+
+.project-image:hover::before {
+    opacity: 1;
+}
+
+.project-image.zoomed {
+    transform: scale(1.5);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+    z-index: 10;
 }
 
 .nav-btn {
@@ -416,47 +466,58 @@ header .nav-list li a:hover::after {
     transform: translateY(-50%);
     background: var(--primary);
     color: #fff;
-    font-size: 1.5rem;
-    padding: 15px;
+    font-size: 1.8rem;
+    padding: 15px 20px;
     border: none;
     border-radius: 50%;
     cursor: pointer;
     transition: var(--transition);
     z-index: 10;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .nav-btn:hover {
     background: var(--primary-light);
-    transform: translateY(-50%) scale(1.1);
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 8px 20px rgba(203, 0, 0, 0.4);
 }
 
 .prev {
-    left: 20px;
+    left: 30px;
 }
 
 .next {
-    right: 20px;
+    right: 30px;
 }
 
 .carousel-indicators {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 12px;
+    margin-top: 30px;
+    z-index: 1;
 }
 
 .indicator {
-    width: 12px;
-    height: 12px;
+    width: 15px;
+    height: 15px;
     background: var(--gray-500);
     border-radius: 50%;
     cursor: pointer;
     transition: var(--transition);
+    position: relative;
+    border: 2px solid var(--dark-700);
 }
 
 .indicator.active {
     background: var(--primary);
-    transform: scale(1.3);
+    transform: scale(1.4);
+    border-color: var(--primary-light);
+}
+
+.indicator:hover {
+    background: var(--primary-light);
+    transform: scale(1.2);
 }
 
 .image-modal {
