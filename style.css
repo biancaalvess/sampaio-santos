@@ -389,9 +389,9 @@ header .nav-list li a:hover::after {
 
 .carousel-container {
     position: relative;
-    max-width: 900px;
+    max-width: 90vw;
     margin: 0 auto;
-    padding: 20px;
+    padding: clamp(10px, 2vw, 20px);
     background: var(--dark-700);
     border-radius: 20px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
@@ -410,13 +410,13 @@ header .nav-list li a:hover::after {
     justify-content: center;
     align-items: center;
     position: relative;
-    padding: 20px;
+    padding: clamp(10px, 2vw, 20px);
 }
 
 .project-image {
     width: 100%;
-    max-width: 700px;
-    max-height: 450px;
+    max-width: clamp(500px, 80vw, 700px);
+    max-height: clamp(300px, 50vh, 450px);
     object-fit: cover;
     border-radius: 15px;
     cursor: pointer;
@@ -438,12 +438,12 @@ header .nav-list li a:hover::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 100%);
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2vw, 1.2rem);
     font-weight: 500;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -455,7 +455,7 @@ header .nav-list li a:hover::after {
 }
 
 .project-image.zoomed {
-    transform: scale(1.5);
+    transform: scale(clamp(1.2, 1.5vw, 1.5));
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
     z-index: 10;
 }
@@ -466,8 +466,8 @@ header .nav-list li a:hover::after {
     transform: translateY(-50%);
     background: var(--primary);
     color: #fff;
-    font-size: 1.8rem;
-    padding: 15px 20px;
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    padding: clamp(10px, 1.5vw, 15px);
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -483,24 +483,24 @@ header .nav-list li a:hover::after {
 }
 
 .prev {
-    left: 30px;
+    left: clamp(10px, 2vw, 20px);
 }
 
 .next {
-    right: 30px;
+    right: clamp(10px, 2vw, 20px);
 }
 
 .carousel-indicators {
     display: flex;
     justify-content: center;
-    gap: 12px;
-    margin-top: 30px;
+    gap: clamp(8px, 1.5vw, 12px);
+    margin-top: clamp(15px, 2vw, 20px);
     z-index: 1;
 }
 
 .indicator {
-    width: 15px;
-    height: 15px;
+    width: clamp(8px, 1.5vw, 12px);
+    height: clamp(8px, 1.5vw, 12px);
     background: var(--gray-500);
     border-radius: 50%;
     cursor: pointer;
@@ -619,4 +619,194 @@ header .nav-list li a:hover::after {
     border-top: 1px solid var(--dark-700);
     color: var(--gray-500);
     font-size: 0.9rem;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .hero-container {
+        flex-direction: column;
+        gap: 30px;
+        padding: 100px 0 60px;
+    }
+
+    .hero-image {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        padding: 12px 30px;
+        font-size: 0.9rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .service-item {
+        padding: 30px 20px;
+    }
+
+    .projects-section {
+        padding: 80px 0;
+    }
+
+    .carousel-container {
+        padding: 10px;
+    }
+
+    .project-image {
+        max-width: 90vw;
+        max-height: 40vh;
+    }
+
+    .project-image::before {
+        font-size: 1rem;
+    }
+
+    .project-image.zoomed {
+        transform: scale(1.3);
+    }
+
+    .nav-btn {
+        font-size: 1.2rem;
+        padding: 8px;
+    }
+
+    .prev {
+        left: 10px;
+    }
+
+    .next {
+        right: 10px;
+    }
+
+    .carousel-indicators {
+        gap: 8px;
+        margin-top: 15px;
+    }
+
+    .indicator {
+        width: 8px;
+        height: 8px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    header .logo {
+        font-size: 24px;
+    }
+
+    header .nav-list {
+        gap: 15px;
+    }
+
+    header .nav-list li a {
+        font-size: 14px;
+    }
+
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+
+    .hero-text p {
+        font-size: 0.9rem;
+    }
+
+    .cta-button {
+        padding: 10px 25px;
+        font-size: 0.8rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .project-image {
+        max-width: 85vw;
+        max-height: 35vh;
+    }
+
+    .project-image::before {
+        font-size: 0.9rem;
+    }
+
+    .project-image.zoomed {
+        transform: scale(1.2);
+    }
+
+    .nav-btn {
+        font-size: 1rem;
+        padding: 6px;
+    }
+
+    .prev {
+        left: 5px;
+    }
+
+    .next {
+        right: 5px;
+    }
+
+    .carousel-indicators {
+        gap: 6px;
+        margin-top: 10px;
+    }
+
+    .indicator {
+        width: 6px;
+        height: 6px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .carousel-container {
+        max-width: 1000px;
+    }
+
+    .project-image {
+        max-width: 800px;
+        max-height: 500px;
+    }
+
+    .project-image::before {
+        font-size: 1.3rem;
+    }
+
+    .project-image.zoomed {
+        transform: scale(1.6);
+    }
+
+    .nav-btn {
+        font-size: 2rem;
+        padding: 18px;
+    }
+
+    .carousel-indicators {
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .indicator {
+        width: 14px;
+        height: 14px;
+    }
 }
