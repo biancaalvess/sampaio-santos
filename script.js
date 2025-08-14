@@ -1,83 +1,173 @@
-function openModal(imageSrc) {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImg');
-    modal.style.display = 'block';
-    modalImg.src = imageSrc;
-}
-
-document.getElementById('closeModal').onclick = function() {
-    document.getElementById('imageModal').style.display = 'none';
-};
-
-let currentIndex = 0;
-const carouselItems = document.querySelectorAll('.carousel-item');
-const totalItems = carouselItems.length;
-const carousel = document.getElementById('carousel');
-const indicatorsContainer = document.getElementById('carouselIndicators');
-
-function createIndicators() {
-    for (let i = 0; i < totalItems; i++) {
-        const indicator = document.createElement('span');
-        indicator.classList.add('indicator');
-        if (i === 0) indicator.classList.add('active');
-        indicator.addEventListener('click', () => {
-            currentIndex = i;
-            updateCarousel();
-        });
-        indicatorsContainer.appendChild(indicator);
-    }
-}
-
-function updateCarousel() {
-    const offset = -currentIndex * 100;
-    carousel.style.transform = `translateX(${offset}%)`;
-    document.querySelectorAll('.indicator').forEach((indicator, index) => {
-        indicator.classList.toggle('active', index === currentIndex);
+// Aguardar o DOM carregar completamente
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // Sistema de zoom interativo
+  const zoomModal = document.getElementById("zoomModal");
+  const zoomImage = document.getElementById("zoomImage");
+  const zoomContainer = document.getElementById("zoomContainer");
+  const zoomIn = document.getElementById("zoomIn");
+  const zoomOut = document.getElementById("zoomOut");
+  const closeZoom = document.getElementById("closeZoom");
+  
+  // Verificar se os elementos existem antes de prosseguir
+  if (!zoomModal || !zoomImage || !zoomContainer || !zoomIn || !zoomOut || !closeZoom) {
+    console.error("Elementos do sistema de zoom não encontrados");
+    return;
+  }
+  
+  let currentZoom = 1;
+  let isDragging = false;
+  let startX, startY, translateX = 0, translateY = 0;
+  
+  // Abrir modal de zoom ao clicar nas imagens dos projetos
+  document.querySelectorAll(".project-image").forEach(img => {
+    img.addEventListener("click", () => {
+      zoomModal.style.display = "block";
+      zoomImage.src = img.src;
+      resetZoom();
+      
+      // Pausar carrossel
+      const imageContainer = document.querySelector('.image-container');
+      if (imageContainer) {
+        imageContainer.style.animationPlayState = 'paused';
+      }
     });
-}
-
-document.getElementById('prevBtn').onclick = function() {
-    currentIndex = (currentIndex === 0) ? totalItems - 1 : currentIndex - 1;
-    updateCarousel();
-};
-
-document.getElementById('nextBtn').onclick = function() {
-    currentIndex = (currentIndex === totalItems - 1) ? 0 : currentIndex + 1;
-    updateCarousel();
-};
-
-carouselItems.forEach(item => {
-    const img = item.querySelector('.project-image');
-    let isZoomed = false;
-    img.addEventListener('click', () => {
-        if (!isZoomed) {
-            img.style.transform = 'scale(1.5)';
-            img.style.zIndex = '10';
-            isZoomed = true;
-        } else {
-            img.style.transform = 'scale(1)';
-            img.style.zIndex = '1';
-            isZoomed = false;
-        }
-    });
-});
-
-let touchStartX = 0;
-let touchEndX = 0;
-
-carousel.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-});
-
-carousel.addEventListener('touchend', e => {
-    touchEndX = e.changedTouches[0].screenX;
-    if (touchStartX - touchEndX > 50) {
-        currentIndex = (currentIndex === totalItems - 1) ? 0 : currentIndex + 1;
-        updateCarousel();
-    } else if (touchEndX - touchStartX > 50) {
-        currentIndex = (currentIndex === 0) ? totalItems - 1 : currentIndex - 1;
-        updateCarousel();
+  });
+  
+  // Controles de zoom
+  zoomIn.addEventListener("click", () => {
+    currentZoom = Math.min(currentZoom * 1.5, 5);
+    updateZoom();
+  });
+  
+  zoomOut.addEventListener("click", () => {
+    currentZoom = Math.max(currentZoom / 1.5, 0.5);
+    updateZoom();
+  });
+  
+  // Fechar modal de zoom
+  closeZoom.addEventListener("click", () => {
+    zoomModal.style.display = "none";
+    
+    // Retomar carrossel
+    const imageContainer = document.querySelector('.image-container');
+    if (imageContainer) {
+      imageContainer.style.animationPlayState = 'running';
     }
+  });
+  
+  // Fechar com ESC
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && zoomModal.style.display === "block") {
+      zoomModal.style.display = "none";
+      
+      // Retomar carrossel
+      const imageContainer = document.querySelector('.image-container');
+      if (imageContainer) {
+        imageContainer.style.animationPlayState = 'running';
+      }
+    }
+  });
+  
+  // Função para atualizar zoom
+  function updateZoom() {
+    zoomImage.style.transform = `scale(${currentZoom})`;
+    zoomContainer.style.cursor = currentZoom > 1 ? 'grab' : 'default';
+  }
+  
+  // Função para resetar zoom
+  function resetZoom() {
+    currentZoom = 1;
+    translateX = 0;
+    translateY = 0;
+    updateZoom();
+    updatePosition();
+  }
+  
+  // Função para atualizar posição
+  function updatePosition() {
+    zoomContainer.style.transform = `translate(-50%, -50%) translate(${translateX}px, ${translateY}px)`;
+  }
+  
+  // Eventos de mouse para arrastar
+  zoomContainer.addEventListener("mousedown", (e) => {
+    if (currentZoom > 1) {
+      isDragging = true;
+      startX = e.clientX - translateX;
+      startY = e.clientY - translateY;
+      zoomContainer.style.cursor = 'grabbing';
+    }
+  });
+  
+  document.addEventListener("mousemove", (e) => {
+    if (isDragging && currentZoom > 1) {
+      translateX = e.clientX - startX;
+      translateY = e.clientY - startY;
+      updatePosition();
+    }
+  });
+  
+  document.addEventListener("mouseup", () => {
+    if (isDragging) {
+      isDragging = false;
+      zoomContainer.style.cursor = 'grab';
+    }
+  });
+  
+  // Duplo clique para resetar
+  zoomContainer.addEventListener("dblclick", () => {
+    resetZoom();
+  });
+  
+  // Suporte para dispositivos touch
+  let touchStartX, touchStartY;
+  
+  zoomContainer.addEventListener("touchstart", (e) => {
+    if (currentZoom > 1) {
+      const touch = e.touches[0];
+      touchStartX = touch.clientX - translateX;
+      touchStartY = touch.clientY - translateY;
+    }
+  });
+  
+  zoomContainer.addEventListener("touchmove", (e) => {
+    if (currentZoom > 1) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      translateX = touch.clientX - touchStartX;
+      translateY = touch.clientY - touchStartY;
+      updatePosition();
+    }
+  });
+  
+  // Gestos de pinch para zoom (dispositivos touch)
+  let initialDistance = 0;
+  let initialZoom = 1;
+  
+  zoomContainer.addEventListener("touchstart", (e) => {
+    if (e.touches.length === 2) {
+      initialDistance = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      initialZoom = currentZoom;
+    }
+  });
+  
+  zoomContainer.addEventListener("touchmove", (e) => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const currentDistance = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      
+      const scale = currentDistance / initialDistance;
+      currentZoom = Math.max(0.5, Math.min(5, initialZoom * scale));
+      updateZoom();
+    }
+  });
+  
+  // Sistema implementado com sucesso
+  console.log("Carousel infinito automático com zoom interativo carregado!");
 });
-
-createIndicators();

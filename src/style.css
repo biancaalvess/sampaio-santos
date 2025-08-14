@@ -1,0 +1,153 @@
+:root {
+  --primary: #cb0000;
+  --primary-light: #ff3333;
+  --dark: #0a0a0a;
+  --dark-800: #1a1a1a;
+  --dark-700: #2a2a2a;
+  --gray-100: #f5f5f5;
+  --gray-300: #d4d4d4;
+  --gray-400: #a3a3a3;
+  --gray-500: #737373;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  line-height: 1.6;
+  color: var(--gray-300);
+  background: var(--dark);
+  overflow-x: hidden;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1, h2, h3 {
+  font-family: "Playfair Display", serif;
+  color: #fff;
+}
+
+/* Estilos globais para seções */
+.section-title {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 60px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 15px;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--primary);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-800);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+}
+
+/* Animações globais */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Classes utilitárias */
+.fade-in {
+  animation: fadeIn 1s ease-out;
+}
+
+.slide-in-left {
+  animation: slideInLeft 1s ease-out;
+}
+
+.slide-in-right {
+  animation: slideInRight 1s ease-out;
+}
+
+/* Responsividade global */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 98%;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+}
