@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import profileImage from '@/assets/foto-profissional.png'
+import profileImage from '../assets/foto-profissional.png'
 
 export default {
   name: 'Hero',
