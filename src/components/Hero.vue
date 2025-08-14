@@ -3,7 +3,7 @@
     <div class="container hero-container">
       <div class="hero-image">
         <img
-          src="./image/foto-profissional.png"
+          src="/image/foto-profissional.png"
           alt="Foto do Profissional"
           class="profile-img"
         />
