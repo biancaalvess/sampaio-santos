@@ -3,7 +3,7 @@
     <div class="container hero-container">
       <div class="hero-image">
         <img
-          src="/image/foto-profissional.png"
+          :src="profileImage"
           alt="Foto do Profissional"
           class="profile-img"
         />
@@ -27,8 +27,15 @@
 </template>
 
 <script>
+import profileImage from '@/assets/foto-profissional.png'
+
 export default {
-  name: 'Hero'
+  name: 'Hero',
+  data() {
+    return {
+      profileImage
+    }
+  }
 }
 </script>
 

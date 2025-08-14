@@ -15,31 +15,31 @@ export default {
       projects: [
         {
           title: 'Projeto 1',
-          image: '/image/projeto-01.png'
+          image: '/src/assets/projeto-01.png'
         },
         {
           title: 'Projeto 2',
-          image: '/image/projeto-02.png'
+          image: '/src/assets/projeto-02.png'
         },
         {
           title: 'Projeto 3',
-          image: '/image/projeto-03.png'
+          image: '/src/assets/projeto-03.png'
         },
         {
           title: 'Projeto 4',
-          image: '/image/projeto-04.png'
+          image: '/src/assets/projeto-04.png'
         },
         {
           title: 'Projeto 5',
-          image: '/image/projeto-05.jpg'
+          image: '/src/assets/projeto-05.jpg'
         },
         {
           title: 'Projeto 6',
-          image: '/image/projeto-06.jpg'
+          image: '/src/assets/projeto-06.jpg'
         },
         {
           title: 'Projeto 7',
-          image: '/image/projeto-07.jpg'
+          image: '/src/assets/projeto-07.jpg'
         }
       ]
     }
